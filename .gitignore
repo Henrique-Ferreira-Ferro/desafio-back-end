@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -33,6 +34,8 @@ build/
 ### VS Code ###
 .vscode/
 =======
+=======
+>>>>>>> 6ab8e67f762d74d683124117e2bc7a9e24bc0dd5
 # Compiled class file
 *.class
 
@@ -57,4 +60,7 @@ build/
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+<<<<<<< HEAD
 >>>>>>> 65b1f49cc763cc158042925f8609d42433e15b62
+=======
+>>>>>>> 6ab8e67f762d74d683124117e2bc7a9e24bc0dd5
