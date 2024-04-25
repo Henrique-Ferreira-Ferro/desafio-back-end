@@ -1,11 +1,15 @@
 package com.desafioApi.ApiCarros.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class CarroEntity {
@@ -14,16 +18,19 @@ public class CarroEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String marca;
+	@ManyToOne
+	@JoinColumn(name="cliente_id")
+	private ClienteEntity cli;
 	private String modelo;
-	private Date dataCadastro;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataCadastro;
 	
 	public CarroEntity() {
 		
 	}
 
-	public CarroEntity(int id, String marca, String modelo, Date dataCadastro) {
+	public CarroEntity(String marca, String modelo, LocalDate dataCadastro) {
 		super();
-		this.id = id;
 		this.marca = marca;
 		this.modelo = modelo;
 		this.dataCadastro = dataCadastro;
@@ -53,11 +60,11 @@ public class CarroEntity {
 		this.modelo = modelo;
 	}
 
-	public Date getDataCadastro() {
+	public LocalDate getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(Date dataCadastro) {
+	public void setDataCadastro(LocalDate dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 	

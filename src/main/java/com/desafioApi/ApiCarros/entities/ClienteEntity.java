@@ -1,11 +1,17 @@
 package com.desafioApi.ApiCarros.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class ClienteEntity {
@@ -13,21 +19,28 @@ public class ClienteEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Length(max = 50, message = "O nome pode ter no máximo 50 caracteres")
 	private String nome;
+	@CPF
 	private String cpf;
-	private String carro;
-	private Date dataNascimento;
-	private Date create_at;
-	private Date update_at;
+	
+	@OneToMany(mappedBy = "cli")
+	private List<CarroEntity> carro;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataNascimento;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private LocalDate create_at;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private LocalDate update_at;
 	
 	public ClienteEntity() {
 		
 	}
 
-	public ClienteEntity(int id, String nome, String cpf, String carro, Date dataNascimento, Date create_at,
-			Date update_at) {
+	
+	public ClienteEntity(@Length(max = 50, message = "O nome pode ter no máximo 50 caracteres") String nome,
+			@CPF String cpf, List<CarroEntity> carro, LocalDate dataNascimento, LocalDate create_at, LocalDate update_at) {
 		super();
-		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.carro = carro;
@@ -35,6 +48,12 @@ public class ClienteEntity {
 		this.create_at = create_at;
 		this.update_at = update_at;
 	}
+
+
+
+
+
+
 
 	public int getId() {
 		return id;
@@ -60,35 +79,37 @@ public class ClienteEntity {
 		this.cpf = cpf;
 	}
 
-	public String getCarro() {
+	
+	public List<CarroEntity> getCarro() {
 		return carro;
 	}
-
-	public void setCarro(String carro) {
-		this.carro = carro;
+	
+	public void setCarro(CarroEntity carro) {
+		this.carro.add(carro);
 	}
 
-	public Date getDataNascimento() {
+
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public Date getCreate_at() {
+	public LocalDate getCreate_at() {
 		return create_at;
 	}
 
-	public void setCreate_at(Date create_at) {
+	public void setCreate_at(LocalDate create_at) {
 		this.create_at = create_at;
 	}
 
-	public Date getUpdate_at() {
+	public LocalDate getUpdate_at() {
 		return update_at;
 	}
 
-	public void setUpdate_at(Date update_at) {
+	public void setUpdate_at(LocalDate update_at) {
 		this.update_at = update_at;
 	}
 	
