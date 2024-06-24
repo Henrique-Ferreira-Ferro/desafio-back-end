@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,51 +17,44 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class ClienteEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	@Length(max = 50, message = "O nome pode ter no máximo 50 caracteres")
 	private String nome;
 	@CPF
 	private String cpf;
-	
+
 	@OneToMany(mappedBy = "cli")
 	private List<CarroEntity> carro;
+
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataNascimento;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate create_at;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate update_at;
-	
+
 	public ClienteEntity() {
-		
+
 	}
 
-	
 	public ClienteEntity(@Length(max = 50, message = "O nome pode ter no máximo 50 caracteres") String nome,
-			@CPF String cpf, List<CarroEntity> carro, LocalDate dataNascimento, LocalDate create_at, LocalDate update_at) {
+			@CPF String cpf, LocalDate dataNascimento, LocalDate create_at, LocalDate update_at) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
-		this.carro = carro;
 		this.dataNascimento = dataNascimento;
 		this.create_at = create_at;
 		this.update_at = update_at;
 	}
 
-
-
-
-
-
-
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -79,15 +74,13 @@ public class ClienteEntity {
 		this.cpf = cpf;
 	}
 
-	
 	public List<CarroEntity> getCarro() {
 		return carro;
 	}
-	
-	public void setCarro(CarroEntity carro) {
-		this.carro.add(carro);
-	}
 
+	public void setCarro(List<CarroEntity> carro) {
+		this.carro = carro;
+	}
 
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
@@ -112,7 +105,5 @@ public class ClienteEntity {
 	public void setUpdate_at(LocalDate update_at) {
 		this.update_at = update_at;
 	}
-	
-	
-	
+
 }
