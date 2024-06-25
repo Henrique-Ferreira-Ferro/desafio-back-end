@@ -3,6 +3,7 @@ package com.desafioApi.ApiCarros.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,9 @@ public class CarroService {
 			carro.setCli(cliente.get());
 			return repository.save(carro);
 		}else {
-			throw new RuntimeException("O cliente não foi encontrado, ou há informações pendentes para o carro!");
+			//Ao criar um carro associamos a um cliente logo, se não conseguimos achar o cliente 
+			// Ocorre a exceção
+			throw new ObjectNotFoundException(idCli, ClienteEntity.class.getName());
 		}
 	}
 	
@@ -54,7 +57,7 @@ public class CarroService {
 			 repository.save(carroAtu);
 			 return carroAtu;
 		}else {
-			throw new RuntimeException("Carro não encontrado!");
+			throw new ObjectNotFoundException(id, CarroEntity.class.getName());
 		}
 		
 	}
@@ -68,7 +71,7 @@ public class CarroService {
 			repository.deleteById(id);
 			return "Carro "+car.getModelo() +" deletado com sucesso!!";
 		}else {
-			return "Carro não encontrado no sistema";
+			throw new ObjectNotFoundException(id, CarroEntity.class.getName());
 		}
 	}
 	

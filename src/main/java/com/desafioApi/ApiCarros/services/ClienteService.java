@@ -1,16 +1,14 @@
 package com.desafioApi.ApiCarros.services;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.desafioApi.ApiCarros.entities.CarroEntity;
 import com.desafioApi.ApiCarros.entities.ClienteEntity;
-import com.desafioApi.ApiCarros.repositores.CarroRepository;
 import com.desafioApi.ApiCarros.repositores.ClienteRepository;
 
 @Service
@@ -52,7 +50,7 @@ public class ClienteService {
 			cliMod.setUpdate_at(LocalDate.now());
 			return repository.save(cliMod);
 		} else {
-			throw new RuntimeException("Cliente não encontrado");
+			throw new ObjectNotFoundException(id, ClienteEntity.class.getSimpleName());
 		}
 
 	}
@@ -65,7 +63,7 @@ public class ClienteService {
 			repository.deleteById(id);
 			return "Usuario " + cl.getNome() + " deletado com sucesso";
 		} else {
-			return "Usuario não encontrado!";
+			throw new ObjectNotFoundException(id,ClienteEntity.class.getSimpleName());
 		}
 	}
 
