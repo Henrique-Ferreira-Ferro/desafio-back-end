@@ -23,7 +23,13 @@ public class ClienteService {
 	// find user by ID
 
 	public Optional<ClienteEntity> findClientbyId(Long id) {
-		return repository.findById(id);
+		Optional<ClienteEntity> cliFind = repository.findById(id);
+		if(cliFind.isPresent()) {
+			return repository.findById(id);
+		}else {
+			throw new ObjectNotFoundException(id,ClienteEntity.class.getName());
+		}
+		
 	}
 
 	// Find all users

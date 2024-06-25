@@ -23,7 +23,13 @@ public class CarroService {
 	
 	//find Car by id
 	public Optional<CarroEntity> findCarById(Long id) {
-		return repository.findById(id);
+		Optional<CarroEntity> carFind = repository.findById(id);
+		if(carFind.isPresent()) {
+			return repository.findById(id);
+		}else {
+			throw new ObjectNotFoundException(id, CarroEntity.class.getName());
+		}
+	
 	}
 	
 	//find all Cars
@@ -66,10 +72,9 @@ public class CarroService {
 	
 	public String deleteCar(Long id) {
 		Optional<CarroEntity> carro = repository.findById(id);
-		CarroEntity car = carro.get();
 		if(carro.isPresent()) {
 			repository.deleteById(id);
-			return "Carro "+car.getModelo() +" deletado com sucesso!!";
+			return "Carro deletado com sucesso!!";
 		}else {
 			throw new ObjectNotFoundException(id, CarroEntity.class.getName());
 		}
