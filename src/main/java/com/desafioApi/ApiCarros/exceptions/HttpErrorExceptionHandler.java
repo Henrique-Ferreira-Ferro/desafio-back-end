@@ -23,6 +23,10 @@ public class HttpErrorExceptionHandler {
 		
 	}
 	
+	@ExceptionHandler(BadRequestException.class)
+	public ResponseEntity<ApiError> badRequest(BadRequestException exception){
+		return buildErrorMessage(HttpStatus.BAD_REQUEST,exception.getMessage());
+	}
 	
 	
 }

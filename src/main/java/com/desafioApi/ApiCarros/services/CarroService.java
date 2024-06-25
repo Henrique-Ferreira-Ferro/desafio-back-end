@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.desafioApi.ApiCarros.entities.CarroEntity;
 import com.desafioApi.ApiCarros.entities.ClienteEntity;
+import com.desafioApi.ApiCarros.exceptions.BadRequestException;
 import com.desafioApi.ApiCarros.repositores.CarroRepository;
 import com.desafioApi.ApiCarros.repositores.ClienteRepository;
 
@@ -42,7 +43,11 @@ public class CarroService {
 	//Associa a um cliente
 	public CarroEntity createCar(CarroEntity carro, Long idCli) {
 		Optional<ClienteEntity> cliente = repositoryCli.findById(idCli);
-		if(cliente.isPresent()) {
+		if(carro.getMarca() == null || carro.getMarca().isBlank() 
+				|| carro.getModelo() == null || carro.getModelo().isBlank() || carro.getDataCadastro() == null) {
+			throw new BadRequestException("Não pode estar vaziu");
+		}
+		if(cliente.isPresent()) {	
 			carro.setCli(cliente.get());
 			return repository.save(carro);
 		}else {
@@ -56,6 +61,12 @@ public class CarroService {
 	
 	public CarroEntity updateCar(CarroEntity carro, Long id){
 		Optional<CarroEntity> car = repository.findById(id);
+		
+		if(carro.getMarca() == null || carro.getMarca().isBlank() 
+				|| carro.getModelo() == null || carro.getModelo().isBlank()) {
+			throw new BadRequestException("Não pode estar vaziu");
+		}
+		
 		if(car.isPresent()) {
 			 var carroAtu = car.get();
 			 carroAtu.setMarca(carro.getMarca());

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.desafioApi.ApiCarros.entities.ClienteEntity;
+import com.desafioApi.ApiCarros.exceptions.BadRequestException;
 import com.desafioApi.ApiCarros.repositores.ClienteRepository;
 
 @Service
@@ -39,14 +40,28 @@ public class ClienteService {
 
 	// Create User
 	public ClienteEntity createUser(ClienteEntity cliente) {
-		cliente.setCreate_at(LocalDate.now());
-		cliente.setUpdate_at(LocalDate.now());
-		return repository.save(cliente);
+		
+		if(cliente.getNome() == null || cliente.getNome().isBlank() ||
+		cliente.getCpf() == null || cliente.getCpf().isBlank() ||
+		cliente.getDataNascimento() == null ) {
+			throw new BadRequestException("Não deixe nada vaziu");
+		}else {
+			cliente.setCreate_at(LocalDate.now());
+			cliente.setUpdate_at(LocalDate.now());
+			return repository.save(cliente);
+		}
 	}
 
 	// Update User
 	public ClienteEntity updateUser(ClienteEntity cliente, Long id) {
 		Optional<ClienteEntity> clien = repository.findById(id);
+		
+		if(cliente.getNome() == null || cliente.getNome().isBlank() ||
+				cliente.getCpf() == null || cliente.getCpf().isBlank() ||
+				cliente.getDataNascimento() == null ) {
+					throw new BadRequestException("Não deixe nada vaziu");
+				}
+		
 		if (clien.isPresent()) {
 			ClienteEntity cliMod = clien.get();
 			cliMod.setNome(cliente.getNome());
