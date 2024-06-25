@@ -58,3 +58,73 @@ Você pode utilizar qualquer banco, desde que ele seja [SQL](http://www.sqlcours
 1. Faça um fork desse repositório.
 2. Resolva o desafio da melhor maneira que você puder.
 3. Envie um pull-request para análise do resultado.
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+### Como utilizar a aplicação 
+
+### As Requisições do Cliente no Postman:
+
+#### Procurar um Cliente por ID
+
+`http://localhost:8080/cliente/1`
+
+![image](https://github.com/Henrique-Ferreira-Ferro/desafio-back-end/assets/92760541/ea691a4f-553a-472d-b6d6-c84b6dafcf86)
+
+
+#### Procurar todos os Clientes
+
+`http://localhost:8080/cliente`
+
+![image](https://github.com/Henrique-Ferreira-Ferro/desafio-back-end/assets/92760541/be385b68-4a30-44ce-a658-0645b15d37cb)
+
+#### Criar um Cliente
+
+`http://localhost:8080/cliente/create`
+
+![image](https://github.com/Henrique-Ferreira-Ferro/desafio-back-end/assets/92760541/37cbadc4-3792-454a-b1e6-67bec39463e5)
+
+#### Atualizar um Cliente por ID
+
+`http://localhost:8080/cliente/update/68`
+
+![image](https://github.com/Henrique-Ferreira-Ferro/desafio-back-end/assets/92760541/31e8e11c-3f2e-4320-8002-33ce08d81068)
+
+#### Deletar um Cliente por ID
+
+`http://localhost:8080/cliente/67`
+
+![image](https://github.com/Henrique-Ferreira-Ferro/desafio-back-end/assets/92760541/ab206870-9e14-44db-8fd8-7633a11a81ff)
+
+
+### As Requisições do Veiculo no Postman:
+
+#### Criar um Veiculo associando a um Cliente
+
+`http://localhost:8080/carro/create/33`
+
+![image](https://github.com/Henrique-Ferreira-Ferro/desafio-back-end/assets/92760541/1289c0b3-7894-4f30-b904-1c79364dfc3f)
+
+#### Atualizar um Veiculo por ID
+
+`http://localhost:8080/carro/update/1`
+
+![image](https://github.com/Henrique-Ferreira-Ferro/desafio-back-end/assets/92760541/650167c7-faac-4292-9a5d-04f99f272c2d)
+
+
+#### Pesquisar um Veiculo por ID
+
+`http://localhost:8080/carro/4`
+
+![image](https://github.com/Henrique-Ferreira-Ferro/desafio-back-end/assets/92760541/e00dfbc2-1535-4906-976f-9127997ecdb6)
+
+
+#### Pesquisar todos os Veiculos
+
+`http://localhost:8080/carro
+
+![image](https://github.com/Henrique-Ferreira-Ferro/desafio-back-end/assets/92760541/5092ad3c-08e9-4e9d-868f-431b93867b65)
+
+
+
