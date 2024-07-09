@@ -17,6 +17,12 @@ import com.desafioApi.ApiCarros.entities.CarroEntity;
 import com.desafioApi.ApiCarros.entities.ClienteEntity;
 import com.desafioApi.ApiCarros.services.ClienteService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
@@ -24,9 +30,19 @@ public class ClienteController {
 	@Autowired
 	private ClienteService service;
 	
+	//Nota: Atualizar as mensagens de sucesso. Use o Postman para ver o que de fato é retornado!
 	
 	//find client by id
 	
+	@Operation(summary = "Encontrar cliente pelo ID", description = "Funcionalidade responsavel pela busca de clientes pelo ID")
+	@ApiResponses(value= {
+			@ApiResponse(responseCode = "200", description = "Cliente Encontrado com sucesso!",
+					content = @Content(mediaType = "application/json",
+					schema = @Schema(implementation = ClienteEntity.class)
+					)
+			),
+			@ApiResponse(responseCode = "400", description = "Não foi possivel encontrar!")
+	})
 	@GetMapping("/{id}")
 	public Optional<ClienteEntity> findClientbyId(@PathVariable Long id) {
 		return service.findClientbyId(id);
@@ -34,6 +50,14 @@ public class ClienteController {
 	
 	
 	//find all clients
+	@Operation(summary= "Busca de todos os clientes", description="Funcionalidade responsavel pela busca de todos os clientes e seus respectivos veiculos")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description="Clientes encontrados com sucesso",
+					content = @Content(mediaType = "application/json",
+					schema = @Schema(implementation = ClienteEntity.class)
+				)
+			)
+	})
 	@GetMapping
 	public List<ClienteEntity> findAllClients(){
 		return service.findAllUser();
@@ -42,6 +66,16 @@ public class ClienteController {
 	
 	//Create a Cliente
 	
+	
+	@Operation(summary="Criar um cliente", description="Funcionalidade responsavel por criar um cliente. Não é necessario criar um carro junto")
+	@ApiResponses(value= {
+			@ApiResponse(responseCode="200", description="Cliente criado com sucesso!",
+					content = @Content(mediaType = "application/json",
+					schema = @Schema(implementation = ClienteEntity.class)
+				)
+			),
+			@ApiResponse(responseCode="400", description="Não foi possivel criar!")
+	})
 	@PostMapping("/create")
 	public ClienteEntity createUser(@RequestBody ClienteEntity cliente) {
 		return service.createUser(cliente);
@@ -49,6 +83,15 @@ public class ClienteController {
 	
 	//Update Cliente
 	
+	 @Operation(summary= "Atualizar um cliente por id", description="Funcionalidade responsavel por criar um cliente por id")
+	 @ApiResponses(value= {
+			 @ApiResponse(responseCode="200", description="Cliente atualizado com sucesso",
+					 content = @Content(mediaType = "application/json",
+					 schema = @Schema(implementation = ClienteEntity.class)
+				)
+			),
+			 @ApiResponse(responseCode="400",description="Não foi possivel atualizar o cliente")
+	 })
 	 @PutMapping("/update/{id}")
 	    public ClienteEntity updateUser(@RequestBody ClienteEntity cliente, @PathVariable("id") Long clienteId) {
 	        return service.updateUser(cliente, clienteId);
@@ -56,6 +99,15 @@ public class ClienteController {
 	
 	//delete Cliente
 	
+	@Operation(summary = "Deletar Cliente por id", description="Funcionalidade responsavel por deletar um Cliente pelo seu ID")
+	@ApiResponses(value= {
+			@ApiResponse(responseCode = "200", description = "cliente deletado com sucesso",
+					content = @Content(mediaType = "application/json",
+					schema = @Schema(implementation = ClienteEntity.class)
+			)
+		),
+			@ApiResponse(responseCode = "400", description = "Não foi possivel encontrar o cliente")
+	})
 	@DeleteMapping("/{id}")
 	public String deleteUser(@PathVariable Long id) {
 		return service.deleteUser(id);
